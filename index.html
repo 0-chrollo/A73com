@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A73COM | Leading Vehicle Services | East London</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        .hero-slider {
+            position: relative;
+            height: 85vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        
+            background-repeat:no-repeat;
+            background-position:center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 10, 10, 0.793);
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 2px;
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-right: 15px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .btn-primary {
+            background:rgb(87, 0, 0);
+            color: white;
+            border: 1px solid rgb(87, 0, 0);
+        }
+
+        .btn-primary:hover {
+            background: rgb(170, 145, 2);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 50;
+            max-width: 800px;
+            padding: 0 120px;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 6vw, 52px);
+            font-weight: 400;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 18px);
+            line-height: 1.5;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+            z-index: 60;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 48px;
+            cursor: pointer;
+            padding: 34px;
+            transition: all 0.3s ease;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-arrow:hover {
+            color: white;
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .indicators {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 60;
+        }
+
+        .indicator {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: 3px solid rgb(255, 255, 255);
+        }
+
+        .indicator.active {
+            background: rgb(87, 0, 0);
+     
+        }
+
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 0 100px;
+            }
+
+            .btn {
+                padding: 12px 22px;
+                font-size: 13px;
+                min-width: 140px;
+            }
+
+            .hero-buttons {
+                gap: 15px;
+            }
+
+            .nav-arrow {
+                padding: 26px;
+                font-size: 40px;
+                width: 76px;
+                height: 76px;
+            }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 0 80px;
+            }
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 13px;
+                min-width: 150px;
+            }
+
+            .btn-outline {
+                margin-right: 0;
+            }
+
+            .nav-arrow {
+                width: 70px;
+                height: 70px;
+                font-size: 36px;
+                padding: 22px;
+            }
+
+            .prev {
+                left: 5px;
+            }
+
+            .next {
+                right: 5px;
+            }
+
+            .indicators {
+                bottom: 25px;
+            }
+
+            .indicator {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+          <a href="index.html" class="logo">
+            <img src="a73.png" alt="Logo">
+            <span class="logo-text"></span>
+          </a>
+      
+          <ul class="nav-menu" id="nav-menu">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="learn.html" class="nav-link">Learn More</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+      
+          <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      
+        <div id="overlay"></div>
+      </nav>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="hero-slider">
+        <!-- Slides -->
+        <div class="slide active" style="background-image: url('v1.webp');">
+            <div class="hero-content">
+                <h1 class="hero-title">Your Colors & Fonts</h1>
+                <p class="hero-subtitle">Donec et magna ac risus tempor tincidunt. Duis malesuada est nulla, quis maximus tortor hendrerit non. Sed nec libero mauris. Duis quis lacus pretium, hendrerit mi quis</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-outline">Learn More</a>
+                    <a href="contact.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" style="background-image: url('v2.webp');">
+            <div class="hero-content">
+                <h1 class="hero-title">Design Excellence</h1>
+                <p class="hero-subtitle">Create beautiful and engaging user experiences with our comprehensive design system. Every element is crafted to perfection with attention to detail and usability in mind.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-outline">View Portfolio</a>
+                    <a href="#" class="btn btn-primary">Start Project</a>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <!-- Navigation Arrows -->
+        <button class="nav-arrow prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="nav-arrow next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+
+        <!-- Indicators -->
+        <div class="indicators">
+            <div class="indicator active" onclick="currentSlide(1)"></div>
+            <div class="indicator" onclick="currentSlide(2)"></div>
+    
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(n) {
+            slides[currentSlideIndex].classList.remove('active');
+            indicators[currentSlideIndex].classList.remove('active');
+            
+            currentSlideIndex = (n + slides.length) % slides.length;
+            
+            slides[currentSlideIndex].classList.add('active');
+            indicators[currentSlideIndex].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlideIndex + direction);
+        }
+
+        function currentSlide(n) {
+            showSlide(n - 1);
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+    </script>
+
+
+
+    <section class="who">
+
+            <style>
+
+        
+                .who {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    background: #fff;
+                    color: #333;
+                    line-height: 1.6;
+                    padding: 20px;
+                }
+        
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+        
+                .header-section {
+                    text-align: center;
+                    margin-bottom: 40px;
+                }
+        
+                .title {
+                    font-size: clamp(2rem, 5vw, 3rem);
+                    font-weight: 700;
+                    color: #2c3e50;
+                    margin-bottom: 10px;
+                }
+        
+                .title-line {
+                    width: 80px;
+                    height: 6px;
+                    background: rgb(109, 1, 1);
+                    margin: 0 auto 30px auto;
+                }
+        
+                .description {
+                    font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+                    color: #555;
+                    max-width: 700px;
+                    margin: 0 auto;
+                }
+        
+                .cards-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 30px;
+                }
+        
+                .card {
+                    background: rgb(242, 241, 230);
+                    border-radius: 1px;
+                    padding: 30px;
+                    border: 1px solid #e9ecef;
+                    transition: transform 0.3s ease;
+                }
+        
+                .card:hover {
+                    transform: translateY(-5px);
+                }
+        
+                .card h3 {
+                    font-size: 1.5rem;
+                    color:rgb(87, 0, 0);
+                    margin-bottom: 15px;
+                    font-weight: 600;
+                }
+        
+                .card p {
+                    font-size: 1rem;
+                    color: #666;
+                    line-height: 1.6;
+                }
+        
+                @media (max-width: 768px) {
+                    .header-section {
+                        text-align: left;
+                    }
+                    
+                    .title-line {
+                        margin: 0 0 30px 0;
+                    }
+                    
+                    .description {
+                        margin: 0;
+                    }
+                    
+                    .cards-container {
+                        grid-template-columns: 1fr;
+                        gap: 20px;
+                    }
+                    
+                    .card {
+                        padding: 25px;
+                    }
+                }
+            </style>
+  
+            <div class="container">
+                <div class="header-section">
+                    <h1 class="title">Who We Are</h1>
+                    <div class="title-line"></div>
+                    
+                    <p class="description">
+                        We are a forward-thinking digital agency that transforms bold ideas into exceptional digital experiences. Our team of creative strategists, innovative developers, and visionary designers work collaboratively to bring your brand's story to life.
+                    </p>
+                </div>
+        
+                <div class="cards-container">
+                    <div class="card">
+                        <h3>Our Mission</h3>
+                        <p>We believe in creating digital solutions that not only look beautiful but also drive real business results. Every project is an opportunity to push creative boundaries while delivering measurable value to our clients.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Our Approach</h3>
+                        <p>Through collaborative partnerships and data-driven strategies, we craft custom digital experiences that resonate with your audience. From concept to launch, we ensure every detail aligns with your brand vision.</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+        <style>
+
+            .sec-section{
+              
+                background-color: rgba(164, 164, 5, 0.091);
+            }
+            /* Main Container */
+            .contain {
+               
+                max-width: 1250px;
+                margin: 10px auto;
+                padding: 15px;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            }
+    
+
+    
+            .one {
+                font-size: 1.25rem;
+                font-weight: 500;
+                color: #000000;
+                margin: 0;
+            }
+            
+            .two {
+                line-height: 1.6;
+                color: #111111;
+            }
+    
+            /* Main Grid Layout - Desktop 2x2 */
+            .main-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                gap: 25px;
+                height: calc(90vh - 170px);
+                min-height: 400px;
+            }
+    
+            /* Info Cards Section - Left Column */
+            .info-cards {
+                display: grid;
+                grid-template-rows: 1fr 1fr;
+                gap: 20px;
+                grid-column: 1;
+                grid-row: 1 / span 2;
+            }
+    
+            /* Comparison Slider - Right Column */
+            .comparison-slider-container {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                border-radius: 12px;
+                border: 1px solid #eeeeee;
+                grid-column: 2;
+                grid-row: 1 / span 2;
+            }
+    
+            .comparison-slider {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                border-radius: 2px;
+                cursor: col-resize;
+                background-color: #f0f0f0;
+            }
+    
+            .comparison-slider .img-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+    
+            .comparison-slider .img-container.after {
+                width: 50%;
+            }
+    
+            .comparison-slider img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                position: relative;
+                top: 0;
+                left: 0;
+                user-select: none;
+                pointer-events: none;
+            }
+    
+            .comparison-slider .label {
+                position: absolute;
+                top: 15px;
+                padding: 8px 12px;
+                background-color: rgb(87, 0, 0);
+                color: #ffffff;
+                border-radius: 2px;
+                font-weight: 500;
+                font-size: 0.9rem;
+                user-select: none;
+                pointer-events: none;
+                border: 1px solid rgba(0,0,0,0.1);
+            }
+    
+            .comparison-slider .label.before {
+                left: 15px;
+            }
+            
+            .comparison-slider .label.after {
+                right: 15px;
+            }
+    
+            .comparison-slider .slider-handle {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 3px;
+                height: 100%;
+                background-color: #FFFFFF;
+                transform: translateX(-1.5px);
+                z-index: 20;
+                pointer-events: none; 
+            }
+            
+            .comparison-slider .slider-handle .handle-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 44px;
+                height: 44px;
+                border: 3px solid #FFFFFF;
+                border-radius: 50%;
+                background-color:rgb(87, 0, 0);
+                color: #ffffff;
+                transform: translate(-50%, -50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 15px rgba(0,0,0,0.3);
+                transition: transform 0.2s ease;
+            }
+            
+            .comparison-slider:hover .handle-icon {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+    
+            /* Cards Styling */
+            .card {
+                background-color: #FFFFFF;
+                border-radius: 2px;
+                padding: 25px;
+                border: 1px solid #eeeeee;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                transition: box-shadow 0.3s ease, transform 0.3s ease;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            }
+    
+            .card-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+            
+            .card-header .icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
+                color: rgb(146, 1, 1);
+            }
+    
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                h3 {
+                    font-size: 2rem;
+                    margin-bottom: 20px;
+                }
+                
+                .main-grid {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: auto auto auto;
+                    height: auto;
+                    min-height: auto;
+                }
+                
+                .info-cards {
+                    grid-column: 1;
+                    grid-row: 2 / span 2;
+                    grid-template-rows: auto auto;
+                }
+                
+                .comparison-slider-container {
+                    grid-column: 1;
+                    grid-row: 1;
+                    height: 50vh;
+                    min-height: 300px;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .contain {
+                    padding: 10px;
+                    margin: 10px auto;
+                }
+                
+                .main-grid {
+                    gap: 15px;
+                }
+                
+                .info-cards {
+                    gap: 15px;
+                }
+            }
+        </style>
+  
+
+
+  <section class="sec-section">
+        <div class="contain">
+
+            <div class="main-grid">
+                <!-- Info Cards - Left Column -->
+                <div class="info-cards">
+                    <!-- Card 1 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h2 class="one">Project Timeline</h2>
+                        </div>
+                        <p class="two">This transformation was completed over a period of 6 weeks, from initial planning to final deployment. Our team worked diligently to ensure every detail was perfect.</p>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="card">
+                        <div class="card-header">
+                             <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h2 class="one">Key Achievements</h2>
+                        </div>
+                        <p class="two">We successfully increased user engagement by 45% and improved performance metrics by 60%. The new design is not only visually appealing but also highly functional.</p>
+                    </div>
+                </div>
+    
+                <!-- Comparison Slider - Right Column -->
+                <div class="comparison-slider-container">
+                    <div id="comparison-slider" class="comparison-slider">
+                        <!-- Before Image -->
+                        <div class="img-container before">
+                            <img src="After.webp" alt="Before"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x900/CCCCCC/000000?text=Image+Not+Found';">
+                        </div>
+                        
+                        <!-- After Image (on top) -->
+                        <div class="img-container after" id="after-image-container">
+                            <img src="before.webp" alt="After"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x900/FFC700/000000?text=Image+Not+Found';">
+                        </div>
+                        
+                        <div class="label before">BEFORE</div>
+                        <div class="label after">AFTER</div>
+    
+                        <!-- Slider Handle -->
+                        <div class="slider-handle" id="slider-handle">
+                            <div class="handle-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                    <path fill-rule="evenodd" d="M2.354 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L8.293 8 2.354 2.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            // Self-invoking function to encapsulate the slider logic
+            (function() {
+                const slider = document.getElementById('comparison-slider');
+                if (!slider) return;
+    
+                const afterImageContainer = document.getElementById('after-image-container');
+                const handle = document.getElementById('slider-handle');
+                let isDragging = false;
+    
+                function moveSlider(x) {
+                    const sliderRect = slider.getBoundingClientRect();
+                    let newX = x - sliderRect.left;
+                    
+                    if (newX < 0) newX = 0;
+                    if (newX > sliderRect.width) newX = sliderRect.width;
+    
+                    const newWidth = (newX / sliderRect.width) * 100;
+                    
+                    afterImageContainer.style.width = newWidth + '%';
+                    handle.style.left = newWidth + '%';
+                }
+                
+                // --- Event Listeners for Mouse ---
+                slider.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    isDragging = true;
+                });
+                document.addEventListener('mouseup', function() { isDragging = false; });
+                document.addEventListener('mousemove', function(e) {
+                    if (isDragging) { moveSlider(e.clientX); }
+                });
+                
+                // --- Event Listeners for Touch ---
+                slider.addEventListener('touchstart', function(e) { isDragging = true; });
+                document.addEventListener('touchend', function() { isDragging = false; });
+                document.addEventListener('touchmove', function(e) {
+                    if (isDragging && e.touches.length > 0) {
+                        moveSlider(e.touches[0].clientX);
+                    }
+                });
+            })();
+        </script>
+</section>
+    
+ 
+    
+
+
+
+
+ <style>
+  .services-section {
+            position: relative;
+            padding: 10px 10px;
+            background-image: url('After.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.804);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .containing{
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-item {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .service-icon {
+            font-size: 40px;
+            color:rgb(116, 4, 4);
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .service-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .service-divider {
+            width: 40px;
+            height: 2px;
+            background: #e74c3c;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .service-item {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-section {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+
+    <section class="services-section">
+        <div class="containing">
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h3 class="service-title">Plumbing</h3>
+                    <p class="service-description">
+                        We offer an impressive range of plumbing services. We provide up-front fixed pricing for any plumbing service. It's complete peace of mind as you know the cost before we start.
+                    </p>
+                    <div class="service-divider"></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="service-title">Roofing & Waterproofing</h3>
+                    <p class="service-description">
+                        We specialize in new roofs, roof repairs, gutters, roof painting and insulation. We provide expert roofing services to commercial and domestic clients across South Africa.
+                    </p>
+                    <div class="service-divider"></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-umbrella"></i>
+                    </div>
+                    <h3 class="service-title">Torch on Waterproofing</h3>
+                    <p class="service-description">
+                        Vasco Renovations Waterproofing Pros take pleasure in offering cutting edge waterproofing services. Our team are experts of torch on waterproofing and will take care of your demands in the best possible way.
+                    </p>
+                    <div class="service-divider"></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3 class="service-title">Plastering & Damp Proofing</h3>
+                    <p class="service-description">
+                        We provide a comprehensive damp-proofing solution in the building phase. We also offer treatments to remediate dampness when it does arise. Our experienced plastering contractors deliver high quality projects.
+                    </p>
+                    <div class="service-divider"></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3 class="service-title">Paving & Tiling</h3>
+                    <p class="service-description">
+                        We specialize in Driveway Paving, Walkway Paving, Commercial & Industrial Paving, Patio & Pool Area Paving and Paving Cleaning. Whether domestic tiling or industrial tiling, we are equipped for any tiling project, regardless of size.
+                    </p>
+                    <div class="service-divider"></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <h3 class="service-title">Built in Units</h3>
+                    <p class="service-description">
+                        Create the perfect room for entertaining your family and friends by keeping clutter at bay and maximizing your space. No matter if you're looking for a more traditional style or modern fitted living room furniture, you'll find the perfect style for you at Hammonds.
+                    </p>
+                    <div class="service-divider"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <style>
+        /* --- General Body and Layout Styles --- */
+        .clients {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            margin: 0;
+        }
+    
+        .reviews-section-wrapper {
+            width: 100%;
+            max-width: 1152px;
+            /* Corresponds to max-w-6xl */
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            /* py-8 px-4 */
+        }
+    
+        /* --- New Title Styles --- */
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* Aligns items to the left */
+           
+            /* Space between title/line and slider */
+        }
+    
+        .section-header h4 {
+         
+            font-size: 1.5rem;
+            /* Adjust size as needed */
+            font-weight: 600;
+            color:rgba(44, 4, 4, 0.861);
+        }
+    
+        .header-line {
+            width: 6rem;
+            height: 0.4rem;
+            /* Gives the line some thickness */
+            background-color: rgb(161, 4, 4);
+            margin-top: 0.5rem;
+            /* Space between title and line */
+        }
+    
+    
+        .slider-container {
+            position: relative;
+        }
+    
+        /* --- Reviews Slider and Cards --- */
+        .reviews-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            /* space-x-6 */
+            padding: 1rem;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            /* Hide scrollbar for a cleaner look */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+    
+        .reviews-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, and Opera */
+        }
+    
+        .review-card {
+            flex-shrink: 0;
+            width: 91.666667%;
+            /* w-11/12 for mobile */
+            background-color: white;
+            border-radius: 0.75rem;
+    
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            overflow: hidden;
+            /* Ensures image corners are rounded */
+        }
+    
+        .review-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Ensures the image covers the card area */
+        }
+    
+        /* --- Navigation Buttons --- */
+        .navy-btn {
+            position: absolute;
+            top: 50%;
+            width: 2.8rem;
+            /* w-12 */
+            height: 2.8rem;
+            /* h-12 */
+            background-color: rgb(87, 0, 0);
+            border: none;
+            border-radius: 5%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            /* text-gray-600 */
+            z-index: 10;
+        }
+    
+        .navy-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+    
+        #prev-btn {
+            left: 0;
+            transform: translateY(-50%);
+        }
+    
+        #next-btn {
+            right: 0;
+            transform: translateY(-50%);
+        }
+    
+        /* --- Pagination Dots --- */
+        .pagination-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            /* space-x-2 */
+            margin-top: 1.5rem;
+            /* mt-6 */
+        }
+    
+        .pagination-dots button {
+            width: 1.3rem;
+            /* w-3 */
+            height: 1.3rem;
+            /* h-3 */
+            border-radius: 9999px;
+            /* rounded-full */
+            border: 3px solid goldenrod;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #d1d5db;
+            /* bg-gray-300 */
+        }
+    
+        .pagination-dots button.active {
+            background-color: rgb(87, 0, 0);
+            /* bg-blue-600 */
+        }
+    
+        /* --- Responsive Design (Media Queries) --- */
+        @media (min-width: 768px) {
+    
+            /* md breakpoint */
+            .review-card {
+                width: 40%;
+                /* A bit less than 5/12 to account for gap */
+            }
+        }
+    
+        @media (min-width: 1024px) {
+    
+            /* lg breakpoint */
+            .review-card {
+                width: 30.5%;
+                /* A bit less than 4/12 to account for gap */
+            }
+        }
+    </style>
+    
+    <section class="clients">
+        <div class="reviews-section-wrapper">
+    
+            <div class="section-header">
+                <h4>What People Say About Us <i class="fa-solid fa-chevron-down" style="color:rgb(173, 3, 3);"></i></h4>
+                <div class="header-line"></div>
+            </div>
+    
+            <div class="slider-container">
+                <div id="reviews-container" class="reviews-container">
+                    <div class="review-card">
+                        <img src="c1.jpg" alt="Client Review 1">
+                    </div>
+                    <div class="review-card">
+                        <img src="c2.jpg" alt="Client Review 2">
+                    </div>
+                    <div class="review-card">
+                        <img src="https://i.postimg.cc/tJpSQLpC/5-stars.png" alt="Client Review 3">
+                    </div>
+                    <div class="review-card">
+                        <img src="https://i.postimg.cc/tJpSQLpC/5-stars.png" alt="Client Review 4">
+                    </div>
+                    <div class="review-card">
+                        <img src="https://i.postimg.cc/tJpSQLpC/5-stars.png" alt="Client Review 5">
+                    </div>
+                    <div class="review-card">
+                        <img src="https://i.postimg.cc/tJpSQLpC/5-stars.png" alt="Client Review 6">
+                    </div>
+                </div>
+    
+                <button id="prev-btn" class="navy-btn"><i class="fas fa-chevron-left"></i></button>
+                <button id="next-btn" class="navy-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+    
+            <div id="pagination-dots" class="pagination-dots">
+                </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('reviews-container');
+            const prevBtn = document.getElementById('prev-btn'); // Corrected ID
+            const nextBtn = document.getElementById('next-btn'); // Corrected ID
+            const paginationDotsContainer = document.getElementById('pagination-dots');
+    
+            const cards = Array.from(container.children);
+            let cardCount = cards.length;
+            let currentIndex = 0;
+    
+            if (cardCount === 0) return;
+    
+            // --- Pagination Dots ---
+            function createPaginationDots() {
+                paginationDotsContainer.innerHTML = ''; // Clear existing dots
+                for (let i = 0; i < cardCount; i++) {
+                    const dot = document.createElement('button');
+                    dot.setAttribute('data-index', i);
+                    dot.addEventListener('click', () => scrollToCard(i));
+                    paginationDotsContainer.appendChild(dot);
+                }
+            }
+    
+            function updatePaginationDots() {
+                const dots = paginationDotsContainer.children;
+                for (let i = 0; i < dots.length; i++) {
+                    dots[i].classList.toggle('active', i === currentIndex);
+                }
+            }
+    
+            // --- Scrolling Logic ---
+            function getScrollAmount() {
+                const card = cards[0];
+                const containerStyle = window.getComputedStyle(container);
+                const cardMargin = parseFloat(containerStyle.gap) || 0;
+                return card.offsetWidth + cardMargin;
+            }
+    
+            function scrollToCard(index) {
+                if (index >= 0 && index < cardCount) {
+                    const scrollAmount = getScrollAmount();
+                    container.scrollLeft = index * scrollAmount;
+                    currentIndex = index;
+                    updateUIVisibility();
+                }
+            }
+    
+            // --- Button Click Handlers ---
+            nextBtn.addEventListener('click', () => {
+                // Determine how many cards are visible
+                const visibleCards = Math.floor(container.clientWidth / (cards[0].offsetWidth + parseFloat(getComputedStyle(container).gap)));
+                if (currentIndex < cardCount - visibleCards) {
+                    scrollToCard(currentIndex + 1);
+                } else {
+                     scrollToCard(cardCount - visibleCards); // Go to the start of the last set of items
+                }
+            });
+    
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    scrollToCard(currentIndex - 1);
+                }
+            });
+    
+            // --- UI Visibility and Updates ---
+            function updateUIVisibility() {
+                prevBtn.style.display = currentIndex === 0 ? 'none' : 'flex';
+    
+                const isAtEnd = container.scrollWidth - container.scrollLeft <= container.clientWidth + 2; // +2 for tolerance
+                nextBtn.style.display = isAtEnd ? 'none' : 'flex';
+    
+                updatePaginationDots();
+            }
+    
+            // --- Intersection Observer for swipe/manual scroll detection ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const cardIndex = cards.indexOf(entry.target);
+                        if (cardIndex !== -1) {
+                            // Find the first visible card's index
+                            const firstVisibleIndex = Math.round(container.scrollLeft / getScrollAmount());
+                            if(currentIndex !== firstVisibleIndex){
+                                 currentIndex = firstVisibleIndex;
+                                 updateUIVisibility();
+                            }
+                        }
+                    }
+                });
+            }, {
+                root: container,
+                threshold: 0.6 // Card is active when 60% is visible
+            });
+    
+            cards.forEach(card => observer.observe(card));
+    
+            // --- Initial Setup ---
+            createPaginationDots();
+            updateUIVisibility();
+    
+            // Recalculate on window resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                     scrollToCard(currentIndex);
+                     updateUIVisibility(); // Also update button visibility on resize
+                }, 100);
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+    /* Footer Styles */
+    .footer {
+        background-color: rgb(61, 0, 0);
+        color:white;
+        padding: 40px 0 20px;
+        margin-top: auto;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .footer-section h3 {
+        color: white;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+        font-weight: 600;
+        border-bottom: 2px solid goldenrod;
+        padding-bottom: 5px;
+        display: inline-block;
+    }
+
+    .footer-section p,
+    .footer-section li {
+        color:white;
+        font-size: 0.95em;
+        line-height: 1.7;
+    }
+
+    .footer-section ul {
+        list-style: none;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+        color: #3498db;
+    }
+
+    .contact-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .contact-info i {
+        width: 20px;
+        margin-right: 10px;
+        color: #3498db;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .social-links a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color:white;
+        color: rgb(25, 98, 25);
+        text-align: center;
+        line-height: 40px;
+        text-decoration: none;
+        border-radius: 3px;
+        transition: background-color 0.3s ease;
+    }
+
+    .social-links a:hover {
+        background-color: #3498db;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid goldenrod;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .footer-bottom-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .footer-bottom p {
+        color:white;
+        font-size: 0.9em;
+    }
+
+    .footer-bottom-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .footer-bottom-links a {
+        color:white;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: color 0.3s ease;
+    }
+
+    .footer-bottom-links a:hover {
+        color: #3498db;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        .footer-bottom-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .footer-bottom-links {
+            justify-content: center;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer {
+            padding: 30px 0 15px;
+        }
+        
+        .footer-container {
+            padding: 0 15px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.1em;
+        }
+        
+        .footer-section p,
+        .footer-section li {
+            font-size: 0.9em;
+        }
+        
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+        }
+    }
+</style>
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <!-- Company Info Section -->
+            <div class="footer-section">
+                <h3>About  A73COM</h3>
+                <p>We are a franchise business offering lawn maintenance and estate management services. Developed during COVID-19, our 100% organic, water-based product transforms dormant winter grass into lush green lawns, safe for humans and animals, while providing year-round income opportunities for franchisees.</p>
+                <div class="social-links">
+                    <a href="https://tiktok.com/@sprayitgreen"> <i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/+27832836991" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+  
+            <!-- What We Offer Section -->
+            <div class="footer-section">
+                <h3>What We Offer</h3>
+                <ul>
+                    <li>100% Organic Lawn Coloring</li>
+                    <li>Necessary Training</li>
+                    <li>Quality Equipment</li>
+                    <li>Year-Round Income</li>
+                    <li>Business Support</li>
+                    <li>Franchise Partnership</li>
+                </ul>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="learn.html">Learn More</a></li>
+            
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 A73COM. All rights reserved. Powered by Lucas Mkohlakali</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script src="scripts.js" ></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
