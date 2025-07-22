@@ -20,6 +20,14 @@
             overflow: hidden;
         }
 
+        .se-divider {
+                width: 70px;
+                height: 5px;
+                background: #8e1c0f;
+               margin-bottom: 20px;
+               justify-self: center;
+               
+            }
         .slide {
             position: absolute;
             top: 0;
@@ -216,7 +224,7 @@
 
         @media (max-width: 480px) {
             .hero-content {
-                padding: 0 70px;
+                padding: 0 55px;
             }
 
             .btn {
@@ -303,7 +311,12 @@
         <div class="slide active" style="background-image: url('v1.webp');">
             <div class="hero-content">
                 <h1 class="hero-title">Your Colors & Fonts</h1>
+ 
+            <div class="se-divider"></div>
                 <p class="hero-subtitle">Donec et magna ac risus tempor tincidunt. Duis malesuada est nulla, quis maximus tortor hendrerit non. Sed nec libero mauris. Duis quis lacus pretium, hendrerit mi quis</p>
+                
+        
+   
                 <div class="hero-buttons">
                     <a href="gallery.html" class="btn btn-outline">Gallery</a>
                     <a href="contact.html" class="btn btn-primary">Get Quote</a>
@@ -314,6 +327,7 @@
         <div class="slide" style="background-image: url('v2.webp');">
             <div class="hero-content">
                 <h1 class="hero-title">Design Excellence</h1>
+                <div class="se-divider"></div>
                 <p class="hero-subtitle">Create beautiful and engaging user experiences with our comprehensive design system. Every element is crafted to perfection with attention to detail and usability in mind.</p>
                 <div class="hero-buttons">
                     <a href="#" class="btn btn-outline">View Portfolio</a>
@@ -898,6 +912,7 @@
             background: #e74c3c;
             margin: 0 auto;
         }
+        
 
         @media (max-width: 768px) {
             .services-grid {
