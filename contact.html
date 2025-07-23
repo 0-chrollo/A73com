@@ -194,7 +194,579 @@
 
 
 
+
+
+
+    <div style="text-align:center; padding:0 1rem;margin-top:4vh;">
+        <h2 style="font-size: 1.5rem; font-weight: 600;color:rgba(47, 4, 4, 0.637);">A73COM Vehicle Solutions Enquiry Form</h2>
+  
+        <div style="margin: 18px auto;height: 7px; width:15vh; background-color: rgb(87, 0, 0);">
+        </div>
+        
+    </div>
+  
+  
+    <main class="tm-form">
+  
+        <style>
+          .tm-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 22px;
+            
+           
+           
+        
+          }
+      
+          .containerd {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+          }
+      
+          .column-1,
+          .column-2 {
+            flex: 1 1 45%;
+            box-sizing: border-box;
+           
+           
+          }
+      
+          @media (max-width: 768px) {
+            .column-1,
+            .column-2 {
+              flex: 1 1 100%;
+            }
+          }
+      
+          .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 3px;
+            box-shadow: 0px 4px 10px rgba(48, 48, 48, 0.051);
+            margin-bottom: 30px;
+          }
+      
+          .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+      
+          .form-group label {
+            flex: 1 1 100%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+          }
+      
+          .form-group input,
+          .form-group select,
+          .form-group textarea {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+          }
+      
+          .btn-submit {
+            background-color:rgb(87, 0, 0);
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+          }
+      
+          .btn-submit:hover {
+            background-color: rgb(144, 9, 9);
+          }
+      
+          @media (min-width: 480px) {
+            .name-group {
+              display: flex;
+              gap: 10px;
+            }
+      
+            .name-group input {
+              flex: 1;
+            }
+          }
+      
+          /* How to Apply Section */
+          .how-to-apply {
+            background: white;
+            width: 100%;
+            padding: 20px;
+            border-radius: 3px;
+            box-shadow: 0px 4px 10px rgba(21, 21, 21, 0.058);
+          }
+      
+          .how-to-apply h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color:rgb(87, 0, 0);
+          }
+      
+          .step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 3px;
+            box-shadow: 0px 2px 5px rgba(30, 30, 30, 0.016);
+          }
+      
+          .step-icon {
+            width: 40px;
+            height: 40px;
+            background:rgb(87, 0, 0);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+          }
+      
+          .step-text {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+          }
+      
+          /* Popup Styles */
+          .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+          }
+      
+          .popup-box {
+            background: #fff;
+            padding: 2rem 3rem;
+            border-radius: 3px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+          }
+      
+          .popup-box i {
+            margin-bottom: 1rem;
+            color:rgb(87, 0, 0);
+          }
+      
+          .popup-box p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+          }
+      
+          .popup-box button {
+            background-color: rgb(87, 0, 0);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+          }
+        </style>
+      
+
+     
+        <div class="containerd">
+          <!-- Column 1: Form -->
+<div class="column-1">
+  <form action="https://formsubmit.co/youremail@example.com" method="POST">
+    <input type="hidden" name="_captcha" value="true">
+    <input type="hidden" name="_next" value="enquire.html?submitted=true">
+
+    <div class="form-group name-group">
+      <input type="text" name="firstName" placeholder="First Name" required>
+      <input type="text" name="surname" placeholder="Surname" required>
+    </div>
+
+    <div class="form-group">
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Email Address (Optional)">
+    </div>
+
+    <div class="form-group">
+      <select name="serviceType" required>
+        <option value="">Select a Service</option>
+        <option>Panel Beating</option>
+        <option>Spray Painting & Vehicle Respray</option>
+        <option>Minor Dent Repairs</option>
+        <option>Major Structural Repairs</option>
+        <option>Chassis Straightening</option>
+        <option>Hail Damage Repairs</option>
+        <option>Rust Removal</option>
+        <option>Touch Ups</option>
+        <option>Headlight Restoration</option>
+        <option>Vehicle Polishing</option>
+        <option>Airbag Services</option>
+        <option>Battery Charging</option>
+        <option>Windscreen Services</option>
+        <option>Other / Custom Repair</option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <input type="text" name="vehicleDetails" placeholder="Vehicle Make & Model (e.g., Toyota Yaris, Ford Raptor)" required>
+    </div>
+
+    <div class="form-group">
+      <input type="text" name="serviceLocation" placeholder="Your Location (for pickup/delivery if needed)" required>
+    </div>
+
+    <div class="form-group">
+      <label>Damage Severity:</label>
+      <select name="damageLevel">
+        <option value="">Select Damage Level (Optional)</option>
+        <option>Minor (Small scratches, light dents)</option>
+        <option>Moderate (Visible damage, needs panel work)</option>
+        <option>Major (Structural damage, collision repair)</option>
+        <option>Complete Respray Needed</option>
+        <option>Not Sure / Need Assessment</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <textarea name="additionalInstructions" rows="3" placeholder="Describe the damage or additional details about your repair needs (Optional)"></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit">
+      <i class="fas fa-paper-plane"></i> Get My Quote
+    </button>
+  </form>
+
+  <!-- Success Popup -->
+  <div id="successPopup" class="popup-overlay">
+    <div class="popup-box">
+      <i class="fas fa-check-circle fa-3x" style="color: green;"></i>
+      <p>Thank you! Your repair quote request has been submitted successfully.</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
+      
+          <!-- Column 2: How to Apply -->
+<!-- Column 2: How to Get Your Quote -->
+<div class="column-2">
+    <div class="how-to-apply">
+      <h2>How to Get Your Repair Quote</h2>
+  
+      <div class="step">
+        <div class="step-icon">1</div>
+        <div class="step-text">Select your automotive service (panel beating, spray painting, structural repairs, etc.).</div>
+      </div>
+  
+      <div class="step">
+        <div class="step-icon">2</div>
+        <div class="step-text">Provide your contact details, vehicle information, and location.</div>
+      </div>
+  
+      <div class="step">
+        <div class="step-icon">3</div>
+        <div class="step-text">Describe the damage level and share any additional repair requirements.</div>
+      </div>
+  
+      <div class="step">
+        <div class="step-icon">4</div>
+        <div class="step-text">Submit your request, and our A Team will contact you for a professional assessment.</div>
+      </div>
+  
+      <div class="step">
+        <div class="step-icon">5</div>
+        <div class="step-text">Receive your detailed quote and schedule your expert repair service at our Woodbrook facility.</div>
+      </div>
+    </div>
+  </div>
+        </div>
+      
+        <script>
+          window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get("submitted") === "true") {
+              document.getElementById("successPopup").style.display = "flex";
+            }
+          };
+      
+          function closePopup() {
+            document.getElementById("successPopup").style.display = "none";
+            window.location.href = "contact.html";
+          }
+        </script>
+      </main>
+  
+
+
+
+
+
+
+
+
+      <style>
+
+
+        /* Footer Styles */
+        .footer {
+            background-color: rgb(61, 0, 0);
+            color:white;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
     
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+    
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+    
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-bottom: 2px solid goldenrod;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+    
+        .footer-section p,
+        .footer-section li {
+            color:white;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+    
+        .footer-section ul {
+            list-style: none;
+        }
+    
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+    
+        .footer-section ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+    
+        .footer-section ul li a:hover {
+            color: #3498db;
+        }
+    
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    
+        .contact-info i {
+            width: 20px;
+            margin-right: 10px;
+            color: #3498db;
+        }
+    
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+    
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color:white;
+            color: rgb(25, 98, 25);
+            text-align: center;
+            line-height: 40px;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .social-links a:hover {
+            background-color: #3498db;
+        }
+    
+        .footer-bottom {
+            border-top: 1px solid goldenrod;
+            padding-top: 20px;
+            text-align: center;
+        }
+    
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+    
+        .footer-bottom p {
+            color:white;
+            font-size: 0.9em;
+        }
+    
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    
+        .footer-bottom-links a {
+            color:white;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+    
+        .footer-bottom-links a:hover {
+            color: #3498db;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .footer {
+                padding: 30px 0 15px;
+            }
+            
+            .footer-container {
+                padding: 0 15px;
+            }
+            
+            .footer-section h3 {
+                font-size: 1.1em;
+            }
+            
+            .footer-section p,
+            .footer-section li {
+                font-size: 0.9em;
+            }
+            
+            .social-links a {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+            }
+        }
+    </style>
+    
+    
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Company Info Section -->
+                <div class="footer-section">
+                    <h3>About A73COM</h3>
+                    <p>We are a professional automotive repair specialist located in East London, Eastern Cape. Specializing in minor & major structural repairs to all multi-brand vehicles, we restore damaged cars back to factory condition with our expert panel beating, spray painting, and comprehensive repair services.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/+27716170705" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="tel:+27716170705"><i class="fas fa-phone"></i></a>
+                    </div>
+                </div>
+      
+                <!-- What We Offer Section -->
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li>Panel Beating & Spray Painting</li>
+                        <li>Minor & Major Structural Repairs</li>
+                        <li>Chassis Straightening</li>
+                        <li>Hail Damage Repairs</li>
+                        <li>Rust Removal & Touch Ups</li>
+                        <li>Headlight Restoration</li>
+                        <li>Vehicle Polishing</li>
+                        <li>Airbags & Battery Charging</li>
+                        <li>Windscreen Services</li>
+                    </ul>
+                </div>
+    
+                <!-- Contact Info Section -->
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 23 Settlers Way, Woodbrook, East London</li>
+                        <li><i class="fas fa-phone"></i> 071 617 0705</li>
+                        <li><i class="fas fa-clock"></i> Mon - Fri: 08h00 - 17h00</li>
+                        <li><i class="fas fa-info-circle"></i> Same yard as USA Spares</li>
+                    </ul>
+                </div>
+    
+            </div>
+    
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 A73COM (Pty) Ltd. All rights reserved. Powered by Lucas Mkohlakali</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
 </body>
 <script src="scripts.js"></script>
 </html>
