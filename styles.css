@@ -14,7 +14,14 @@
 }
 
 
-
+.se-divider {
+    width: 70px;
+    height: 5px;
+    background: rgb(87, 0, 0);
+   margin-bottom: 20px;
+   justify-self: center;
+   
+}
 
 
 body {
