@@ -302,24 +302,7 @@
     </div>
 </section>
 
-<!-- PDF Viewer Modal -->
-<div id="pdfModal" class="pdf-modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 id="modalTitle">Certificate</h3>
-            <span class="close-btn" onclick="closePdfModal()">&times;</span>
-        </div>
-        <div class="modal-body">
-            <!-- Loading Spinner -->
-            <div id="pdfLoader" class="pdf-loader">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading certificate...</p>
-            </div>
-            <!-- PDF Iframe -->
-            <iframe id="pdfViewer" src="" width="100%" height="500px" style="display: none;"></iframe>
-        </div>
-    </div>
-</div>
+
 
 <!-- Font Awesome CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -543,83 +526,7 @@
     background-color:rgb(188, 20, 20);
 }
 
-/* PDF Modal */
-.pdf-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    animation: fadeIn 0.3s ease;
-}
 
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    width: 90%;
-    max-width: 900px;
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.modal-header {
-    background-color:rgb(87, 0, 0);
-    color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 1.3rem;
-}
-
-.close-btn {
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 3px;
-    transition: background-color 0.3s ease;
-}
-
-.close-btn:hover {
-    background-color: rgba(255,255,255,0.2);
-}
-
-.modal-body {
-    padding: 0;
-    position: relative;
-    min-height: 500px;
-}
-
-/* PDF Loader Styles */
-.pdf-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 500px;
-    background-color: #f8f9fa;
-    color: #666;
-}
-
-.pdf-loader i {
-    font-size: 3rem;
-    color: rgb(87, 0, 0);
-    margin-bottom: 20px;
-}
-
-.pdf-loader p {
-    font-size: 1.1rem;
-    margin: 0;
-    font-weight: 500;
-}
 
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -653,14 +560,6 @@
     .container {
         padding: 0 15px;
     }
-    
-    .pdf-loader i {
-        font-size: 2.5rem;
-    }
-    
-    .pdf-loader p {
-        font-size: 1rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -679,91 +578,25 @@
     .cert-card {
         padding: 25px 20px;
     }
-    
-    .modal-body,
-    .pdf-loader {
-        min-height: 400px;
-        height: 400px;
-    }
-    
-    .pdf-loader i {
-        font-size: 2rem;
-    }
 }
 </style>
 
 <script>
 function viewCertificate(certType) {
-    const modal = document.getElementById('pdfModal');
-    const iframe = document.getElementById('pdfViewer');
-    const loader = document.getElementById('pdfLoader');
-    const title = document.getElementById('modalTitle');
+    let pdfUrl = '';
     
-    // Show modal and loader
-    modal.style.display = 'block';
-    loader.style.display = 'flex';
-    iframe.style.display = 'none';
-    document.body.style.overflow = 'hidden';
-    
-    // Set up PDF source and title
     if (certType === 'apmma') {
-        iframe.src = 'APMMA_A 73 COM (PTY)LTD_MR_523380_01.pdf';
-        title.textContent = 'APMMA Certification';
+        pdfUrl = 'APMMA_A 73 COM (PTY)LTD_MR_523380_01.pdf';
     } else if (certType === 'aa') {
-        iframe.src = 'AAQA_A_Badge_of_Trust&Excellence.pdf';
-        title.textContent = 'AA Accreditation Certificate';
+        pdfUrl = 'AAQA_A_Badge_of_Trust&Excellence.pdf';
     }
     
-    // Handle iframe load event
-    iframe.onload = function() {
-        // Hide loader and show iframe when PDF is loaded
-        loader.style.display = 'none';
-        iframe.style.display = 'block';
-    };
-    
-    // Handle iframe error event
-    iframe.onerror = function() {
-        // Hide loader and show error message
-        loader.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #dc3545;"></i><p style="color: #dc3545;">Failed to load certificate. Please try again.</p>';
-    };
-    
-    // Fallback timeout in case onload doesn't fire
-    setTimeout(function() {
-        if (loader.style.display !== 'none') {
-            loader.style.display = 'none';
-            iframe.style.display = 'block';
-        }
-    }, 10000); // 10 second timeout
-}
-
-function closePdfModal() {
-    const modal = document.getElementById('pdfModal');
-    const iframe = document.getElementById('pdfViewer');
-    const loader = document.getElementById('pdfLoader');
-    
-    modal.style.display = 'none';
-    iframe.src = '';
-    iframe.style.display = 'none';
-    loader.style.display = 'flex';
-    // Reset loader content in case it was changed to error message
-    loader.innerHTML = '<i class="fas fa-spinner fa-spin"></i><p>Loading certificate...</p>';
-    document.body.style.overflow = 'auto';
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('pdfModal');
-    if (event.target === modal) {
-        closePdfModal();
+    // Open PDF in new tab/window using the device's default PDF viewer
+    if (pdfUrl) {
+        window.open(pdfUrl, '_blank');
     }
 }
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closePdfModal();
-    }
-});
 
 </script>
 
