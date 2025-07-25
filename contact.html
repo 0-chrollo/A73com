@@ -746,8 +746,7 @@
           uploadArea.classList.remove('dragover');
           
           const files = Array.from(e.dataTransfer.files);
-          const fileInput = document.getElementById('damageImages');
-          
+          const fileInput = document.getElementById('damageImages');          
           // Create a new FileList-like object
           const dt = new DataTransfer();
           files.forEach(file => dt.items.add(file));
@@ -762,15 +761,13 @@
             document.getElementById("successPopup").style.display = "flex";
           }
         };
-    
+     
         function closePopup() {
           document.getElementById("successPopup").style.display = "none";
           window.location.href = "contact.html";
         }
       </script>
     </main>
-
-
 
 
 
@@ -1002,8 +999,6 @@
             </div>
         </div>
     </footer>
-
-
 
 </body>
 <script src="scripts.js"></script>
