@@ -849,7 +849,7 @@
    <div class="containerd">
         <!-- Column 1: Form -->
 <div class="column-1">
-<form action="https://formsubmit.co/a73com10@gmail.com" method="POST" enctype="multipart/form-data">
+<form action="https://formsubmit.co/youremail@example.com" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="_captcha" value="true">
   <input type="hidden" name="_next" value="enquire.html?submitted=true">
   <input type="hidden" name="_subject" value="New Automotive Repair Quote Request">
@@ -906,11 +906,14 @@
         <strong>Upload photos of the damage</strong><br>
         Help us provide a more accurate quote by showing the areas needing repair
       </div>
-      <button type="button" class="upload-btn" onclick="document.getElementById('damageImages').click()">
+      <button type="button" class="upload-btn" onclick="triggerFileSelect()">
         <i class="fas fa-upload"></i> Choose Photos
       </button>
-      <input type="file" id="damageImages" name="attachment1" class="file-input" accept="image/*" onchange="handleImageUpload(this, 0)">
-      <input type="file" id="damageImages2" name="attachment2" class="file-input" accept="image/*" style="display: none;" onchange="handleImageUpload(this, 1)">
+      <!-- Two separate hidden file inputs for FormSubmit -->
+      <input type="file" id="imageInput1" name="attachment1" class="file-input" accept="image/*" onchange="handleSingleImageUpload(this, 0)" style="display: none;">
+      <input type="file" id="imageInput2" name="attachment2" class="file-input" accept="image/*" onchange="handleSingleImageUpload(this, 1)" style="display: none;">
+      <!-- Visible file input for multiple selection -->
+      <input type="file" id="tempImageInput" class="file-input" multiple accept="image/*" onchange="handleMultipleImageUpload(this)" style="display: none;">
       <div class="file-info">
         Maximum 2 images • Each file must be less than 5MB • Supported: JPG, PNG, WebP, HEIC
       </div>
@@ -972,12 +975,15 @@
       </div>
     
       <script>
-        let uploadedFiles = [];
+        let uploadedFiles = [null, null]; // Track two slots
         const maxFiles = 2;
         const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-        const fileInputs = ['damageImages', 'damageImages2'];
 
-        function handleImageUpload(input, inputIndex) {
+        function triggerFileSelect() {
+          document.getElementById('tempImageInput').click();
+        }
+
+        function handleMultipleImageUpload(input) {
           const files = Array.from(input.files);
           const errorDiv = document.getElementById('uploadError');
           
@@ -985,81 +991,116 @@
           errorDiv.style.display = 'none';
           errorDiv.textContent = '';
           
-          // If this is the first input and multiple files selected, distribute them
-          if (inputIndex === 0 && files.length > 1) {
-            // Put first file in first input
-            const dt1 = new DataTransfer();
-            dt1.items.add(files[0]);
-            input.files = dt1.files;
-            
-            // Put second file in second input if available
-            if (files[1]) {
-              const secondInput = document.getElementById('damageImages2');
-              const dt2 = new DataTransfer();
-              dt2.items.add(files[1]);
-              secondInput.files = dt2.files;
-              
-              // Process both files
-              processFile(files[0], 0);
-              processFile(files[1], 1);
-            } else {
-              processFile(files[0], 0);
-            }
-          } else if (files.length === 1) {
-            processFile(files[0], inputIndex);
-          } else if (files.length === 0) {
-            // File was removed
-            removeFileAtIndex(inputIndex);
+          if (files.length === 0) return;
+          
+          // Check if we can fit the files
+          const emptySlots = uploadedFiles.filter(f => f === null).length;
+          if (files.length > emptySlots) {
+            showError(`You can only upload ${emptySlots} more image(s). Remove existing images first.`);
+            input.value = '';
+            return;
           }
           
+          // Validate all files first
+          for (let file of files) {
+            if (file.size > maxSize) {
+              showError(`File "${file.name}" is too large. Maximum size is 5MB.`);
+              input.value = '';
+              return;
+            }
+            
+            if (!file.type.startsWith('image/')) {
+              showError(`File "${file.name}" is not a valid image file.`);
+              input.value = '';
+              return;
+            }
+          }
+          
+          // Place files in available slots
+          let fileIndex = 0;
+          for (let i = 0; i < maxFiles && fileIndex < files.length; i++) {
+            if (uploadedFiles[i] === null) {
+              setImageAtSlot(i, files[fileIndex]);
+              fileIndex++;
+            }
+          }
+          
+          // Clear the temp input
+          input.value = '';
           updateUploadArea();
         }
 
-        function processFile(file, index) {
+        function handleSingleImageUpload(input, slot) {
+          const files = Array.from(input.files);
+          if (files.length === 0) {
+            // File was cleared
+            clearImageSlot(slot);
+            return;
+          }
+          
+          const file = files[0];
+          
           // Validate file
           if (file.size > maxSize) {
             showError(`File "${file.name}" is too large. Maximum size is 5MB.`);
+            input.value = '';
             return;
           }
           
           if (!file.type.startsWith('image/')) {
             showError(`File "${file.name}" is not a valid image file.`);
+            input.value = '';
             return;
           }
           
-          // Update uploadedFiles array
-          uploadedFiles[index] = file;
-          
-          // Display preview
-          displayImagePreview(file, index);
+          setImageAtSlot(slot, file);
+          updateUploadArea();
         }
 
-        function removeFileAtIndex(index) {
-          // Remove from uploaded files array
-          uploadedFiles[index] = null;
+        function setImageAtSlot(slot, file) {
+          uploadedFiles[slot] = file;
           
-          // Clear the corresponding input
-          const inputId = fileInputs[index];
-          document.getElementById(inputId).value = '';
+          // Update the corresponding hidden input
+          const hiddenInput = document.getElementById(`imageInput${slot + 1}`);
+          const dt = new DataTransfer();
+          dt.items.add(file);
+          hiddenInput.files = dt.files;
+          
+          // Update preview
+          displayImagePreview(file, slot);
+        }
+
+        function clearImageSlot(slot) {
+          uploadedFiles[slot] = null;
+          
+          // Clear the corresponding hidden input
+          const hiddenInput = document.getElementById(`imageInput${slot + 1}`);
+          hiddenInput.value = '';
           
           // Remove preview
-          const previewItem = document.querySelector(`[data-index="${index}"]`);
+          const previewItem = document.querySelector(`[data-slot="${slot}"]`);
           if (previewItem) {
             previewItem.remove();
           }
         }
 
-        function displayImagePreview(file, index) {
+        function displayImagePreview(file, slot) {
           const previewDiv = document.getElementById('imagePreview');
           const reader = new FileReader();
+          
+          // Remove existing preview for this slot
+          const existingPreview = document.querySelector(`[data-slot="${slot}"]`);
+          if (existingPreview) {
+            existingPreview.remove();
+          }
           
           reader.onload = function(e) {
             const previewItem = document.createElement('div');
             previewItem.className = 'preview-item';
-            previewItem.setAttribute('data-index', index);
+            previewItem.setAttribute('data-slot', slot);
             previewItem.innerHTML = `
               <img src="${e.target.result}" alt="Preview" class="preview-image">
-              <button type="button" class="remove-image" onclick="removeImageByIndex(${index}, this)">×</button>
+              <button type="button" class="remove-image" onclick="removeImageFromSlot(${slot})">×</button>
             `;
             previewDiv.appendChild(previewItem);
           };
@@ -1067,15 +1108,19 @@
           reader.readAsDataURL(file);
         }
 
-        function removeImageByIndex(index, button) {
-          removeFileAtIndex(index);
+        function removeImageFromSlot(slot) {
+          clearImageSlot(slot);
           updateUploadArea();
+          
+          // Clear any error messages
+          const errorDiv = document.getElementById('uploadError');
+          errorDiv.style.display = 'none';
         }
 
         function updateUploadArea() {
           const uploadArea = document.getElementById('imageUploadArea');
           const uploadBtn = uploadArea.querySelector('.upload-btn');
-          const fileCount = uploadedFiles.filter(file => file !== null).length;
+          const fileCount = uploadedFiles.filter(f => f !== null).length;
           
           if (fileCount >= maxFiles) {
             uploadBtn.style.display = 'none';
@@ -1092,6 +1137,7 @@
           const errorDiv = document.getElementById('uploadError');
           errorDiv.textContent = message;
           errorDiv.style.display = 'block';
+          errorDiv.style.color = '#dc3545'; // Red color for errors
         }
 
         // Drag and drop functionality
@@ -1112,25 +1158,15 @@
           uploadArea.classList.remove('dragover');
           
           const files = Array.from(e.dataTransfer.files);
+          if (files.length === 0) return;
           
-          // Process up to 2 files
-          if (files.length >= 1) {
-            const fileInput1 = document.getElementById('damageImages');
-            const dt1 = new DataTransfer();
-            dt1.items.add(files[0]);
-            fileInput1.files = dt1.files;
-            processFile(files[0], 0);
-          }
+          // Use the temp input to handle multiple files
+          const tempInput = document.getElementById('tempImageInput');
+          const dt = new DataTransfer();
+          files.forEach(file => dt.items.add(file));
+          tempInput.files = dt.files;
           
-          if (files.length >= 2) {
-            const fileInput2 = document.getElementById('damageImages2');
-            const dt2 = new DataTransfer();
-            dt2.items.add(files[1]);
-            fileInput2.files = dt2.files;
-            processFile(files[1], 1);
-          }
-          
-          updateUploadArea();
+          handleMultipleImageUpload(tempInput);
         });
 
         window.onload = function () {
