@@ -846,12 +846,14 @@
     
 
    
-      <div class="containerd">
+   <div class="containerd">
         <!-- Column 1: Form -->
 <div class="column-1">
-<form action="https://formsubmit.co/youremail@example.com" method="POST" enctype="multipart/form-data">
+<form action="https://formsubmit.co/a73com10@gmail.com" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="_captcha" value="true">
   <input type="hidden" name="_next" value="enquire.html?submitted=true">
+  <input type="hidden" name="_subject" value="New Automotive Repair Quote Request">
+  <input type="hidden" name="_template" value="table">
 
   <div class="form-group name-group">
     <input type="text" name="firstName" placeholder="First Name" required>
@@ -869,20 +871,20 @@
   <div class="form-group">
     <select name="serviceType" required>
       <option value="">Select a Service</option>
-      <option>Panel Beating</option>
-      <option>Spray Painting & Vehicle Respray</option>
-      <option>Minor Dent Repairs</option>
-      <option>Major Structural Repairs</option>
-      <option>Chassis Straightening</option>
-      <option>Hail Damage Repairs</option>
-      <option>Rust Removal</option>
-      <option>Touch Ups</option>
-      <option>Headlight Restoration</option>
-      <option>Vehicle Polishing</option>
-      <option>Airbag Services</option>
-      <option>Battery Charging</option>
-      <option>Windscreen Services</option>
-      <option>Other / Custom Repair</option>
+      <option value="Panel Beating">Panel Beating</option>
+      <option value="Spray Painting & Vehicle Respray">Spray Painting & Vehicle Respray</option>
+      <option value="Minor Dent Repairs">Minor Dent Repairs</option>
+      <option value="Major Structural Repairs">Major Structural Repairs</option>
+      <option value="Chassis Straightening">Chassis Straightening</option>
+      <option value="Hail Damage Repairs">Hail Damage Repairs</option>
+      <option value="Rust Removal">Rust Removal</option>
+      <option value="Touch Ups">Touch Ups</option>
+      <option value="Headlight Restoration">Headlight Restoration</option>
+      <option value="Vehicle Polishing">Vehicle Polishing</option>
+      <option value="Airbag Services">Airbag Services</option>
+      <option value="Battery Charging">Battery Charging</option>
+      <option value="Windscreen Services">Windscreen Services</option>
+      <option value="Other / Custom Repair">Other / Custom Repair</option>
     </select>
   </div>
 
@@ -907,9 +909,10 @@
       <button type="button" class="upload-btn" onclick="document.getElementById('damageImages').click()">
         <i class="fas fa-upload"></i> Choose Photos
       </button>
-      <input type="file" id="damageImages" name="damageImages" class="file-input" multiple accept="image/*" onchange="handleImageUpload(this)">
+      <input type="file" id="damageImages" name="attachment1" class="file-input" accept="image/*" onchange="handleImageUpload(this, 0)">
+      <input type="file" id="damageImages2" name="attachment2" class="file-input" accept="image/*" style="display: none;" onchange="handleImageUpload(this, 1)">
       <div class="file-info">
-        Maximum 2 images • Each file must be less than 5MB • Supported: JPG, PNG, HEIC
+        Maximum 2 images • Each file must be less than 5MB • Supported: JPG, PNG, WebP, HEIC
       </div>
       <div class="error-message" id="uploadError"></div>
       <div class="image-preview" id="imagePreview"></div>
@@ -972,62 +975,91 @@
         let uploadedFiles = [];
         const maxFiles = 2;
         const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        const fileInputs = ['damageImages', 'damageImages2'];
 
-        function handleImageUpload(input) {
+        function handleImageUpload(input, inputIndex) {
           const files = Array.from(input.files);
           const errorDiv = document.getElementById('uploadError');
-          const previewDiv = document.getElementById('imagePreview');
           
           // Clear previous errors
           errorDiv.style.display = 'none';
           errorDiv.textContent = '';
           
-          // Check file count
-          if (uploadedFiles.length + files.length > maxFiles) {
-            showError(`You can only upload a maximum of ${maxFiles} images.`);
-            input.value = '';
-            return;
-          }
-          
-          // Validate each file
-          for (let file of files) {
-            // Check file size
-            if (file.size > maxSize) {
-              showError(`File "${file.name}" is too large. Maximum size is 5MB.`);
-              input.value = '';
-              return;
-            }
+          // If this is the first input and multiple files selected, distribute them
+          if (inputIndex === 0 && files.length > 1) {
+            // Put first file in first input
+            const dt1 = new DataTransfer();
+            dt1.items.add(files[0]);
+            input.files = dt1.files;
             
-            // Check file type
-            if (!file.type.startsWith('image/')) {
-              showError(`File "${file.name}" is not a valid image file.`);
-              input.value = '';
-              return;
+            // Put second file in second input if available
+            if (files[1]) {
+              const secondInput = document.getElementById('damageImages2');
+              const dt2 = new DataTransfer();
+              dt2.items.add(files[1]);
+              secondInput.files = dt2.files;
+              
+              // Process both files
+              processFile(files[0], 0);
+              processFile(files[1], 1);
+            } else {
+              processFile(files[0], 0);
             }
+          } else if (files.length === 1) {
+            processFile(files[0], inputIndex);
+          } else if (files.length === 0) {
+            // File was removed
+            removeFileAtIndex(inputIndex);
           }
-          
-          // Add files to uploaded files array
-          files.forEach(file => {
-            uploadedFiles.push(file);
-            displayImagePreview(file);
-          });
-          
-          // Clear the input value to allow re-uploading same file after removal
-          input.value = '';
           
           updateUploadArea();
         }
 
-        function displayImagePreview(file) {
+        function processFile(file, index) {
+          // Validate file
+          if (file.size > maxSize) {
+            showError(`File "${file.name}" is too large. Maximum size is 5MB.`);
+            return;
+          }
+          
+          if (!file.type.startsWith('image/')) {
+            showError(`File "${file.name}" is not a valid image file.`);
+            return;
+          }
+          
+          // Update uploadedFiles array
+          uploadedFiles[index] = file;
+          
+          // Display preview
+          displayImagePreview(file, index);
+        }
+
+        function removeFileAtIndex(index) {
+          // Remove from uploaded files array
+          uploadedFiles[index] = null;
+          
+          // Clear the corresponding input
+          const inputId = fileInputs[index];
+          document.getElementById(inputId).value = '';
+          
+          // Remove preview
+          const previewItem = document.querySelector(`[data-index="${index}"]`);
+          if (previewItem) {
+            previewItem.remove();
+          }
+        }
+
+        function displayImagePreview(file, index) {
           const previewDiv = document.getElementById('imagePreview');
           const reader = new FileReader();
           
           reader.onload = function(e) {
             const previewItem = document.createElement('div');
             previewItem.className = 'preview-item';
+            previewItem.setAttribute('data-index', index);
             previewItem.innerHTML = `
               <img src="${e.target.result}" alt="Preview" class="preview-image">
-              <button type="button" class="remove-image" onclick="removeImage('${file.name}', this)">×</button>
+              <button type="button" class="remove-image" onclick="removeImageByIndex(${index}, this)">×</button>
             `;
             previewDiv.appendChild(previewItem);
           };
@@ -1035,28 +1067,24 @@
           reader.readAsDataURL(file);
         }
 
-        function removeImage(fileName, button) {
-          // Remove from uploaded files array
-          uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
-          
-          // Remove preview element
-          button.parentElement.remove();
-          
+        function removeImageByIndex(index, button) {
+          removeFileAtIndex(index);
           updateUploadArea();
         }
 
         function updateUploadArea() {
           const uploadArea = document.getElementById('imageUploadArea');
           const uploadBtn = uploadArea.querySelector('.upload-btn');
+          const fileCount = uploadedFiles.filter(file => file !== null).length;
           
-          if (uploadedFiles.length >= maxFiles) {
+          if (fileCount >= maxFiles) {
             uploadBtn.style.display = 'none';
             uploadArea.querySelector('.upload-text').innerHTML = 
-              `<strong>Maximum images uploaded (${uploadedFiles.length}/${maxFiles})</strong><br>Remove an image to upload a different one`;
+              `<strong>Maximum images uploaded (${fileCount}/${maxFiles})</strong><br>Remove an image to upload a different one`;
           } else {
             uploadBtn.style.display = 'inline-block';
             uploadArea.querySelector('.upload-text').innerHTML = 
-              `<strong>Upload photos of the damage (${uploadedFiles.length}/${maxFiles})</strong><br>Help us provide a more accurate quote by showing the areas needing repair`;
+              `<strong>Upload photos of the damage (${fileCount}/${maxFiles})</strong><br>Help us provide a more accurate quote by showing the areas needing repair`;
           }
         }
 
@@ -1084,13 +1112,25 @@
           uploadArea.classList.remove('dragover');
           
           const files = Array.from(e.dataTransfer.files);
-          const fileInput = document.getElementById('damageImages');          
-          // Create a new FileList-like object
-          const dt = new DataTransfer();
-          files.forEach(file => dt.items.add(file));
-          fileInput.files = dt.files;
           
-          handleImageUpload(fileInput);
+          // Process up to 2 files
+          if (files.length >= 1) {
+            const fileInput1 = document.getElementById('damageImages');
+            const dt1 = new DataTransfer();
+            dt1.items.add(files[0]);
+            fileInput1.files = dt1.files;
+            processFile(files[0], 0);
+          }
+          
+          if (files.length >= 2) {
+            const fileInput2 = document.getElementById('damageImages2');
+            const dt2 = new DataTransfer();
+            dt2.items.add(files[1]);
+            fileInput2.files = dt2.files;
+            processFile(files[1], 1);
+          }
+          
+          updateUploadArea();
         });
 
         window.onload = function () {
