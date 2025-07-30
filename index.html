@@ -2068,31 +2068,14 @@
 
 
 
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-  const whatsappWidget = document.querySelector('.whatsapp-widget');
-  
-  if (whatsappWidget) {
-    whatsappWidget.addEventListener('click', function() {
-      gtag('event', 'click', {
-        'event_category': 'WhatsApp',
-        'event_label': 'Widget Click',
-        'value': 1
-      });
-    });
-  }
-});
-    </script>
-
-
-<!--Contact-Widgets-->
 <div class="fixed-widgets">
-    <a href="https://wa.me/27716170705" target="_blank" class="whatsapp-widget">
+    <a href="https://wa.me/27716170705" 
+       target="_blank" 
+       class="whatsapp-widget"
+       onclick="gtag('event', 'whatsapp_click', {'event_category': 'engagement', 'event_label': 'whatsapp_widget'}); console.log('GA event sent');">
         <i class="fab fa-whatsapp"></i>
     </a>
-
-  </div>
+</div>
   <!--Contact-Widgets-->
   
   <style>
