@@ -764,8 +764,16 @@
                 <div class="se-divider"></div>
                 <p class="hero-subtitle">From collision damage to cosmetic repairs, we breathe new life into your vehicle. Our skilled A Team combines years of experience with modern techniques to deliver exceptional results that exceed your expectations.</p>
                 <div class="hero-buttons">
-                    <a href="gallery.html" class="btn btn-outline">Gallery</a>
-                    <a href="contact.html" class="btn btn-primary">Get Quote</a>
+                    <a href="gallery.html" 
+                       class="btn btn-outline"
+                       onclick="gtag('event', 'internal_link', {'event_category': 'navigation', 'event_label': 'home_to_gallery'});">
+                       Gallery
+                    </a>
+                    <a href="contact.html" 
+                       class="btn btn-primary"
+                       onclick="gtag('event', 'cta_click', {'event_category': 'leads', 'event_label': 'home_get_quote'});">
+                       Get Quote
+                    </a>
                 </div>
             </div>
         </div>
@@ -2066,7 +2074,15 @@
 
 
 
+<script>
+    setTimeout(function() {
+  gtag('event', 'time_on_page_30s', {'event_category': 'engagement'});
+}, 30000); // 30 seconds
 
+setTimeout(function() {
+  gtag('event', 'time_on_page_60s', {'event_category': 'engagement'});
+}, 60000); // 60 seconds
+</script>
 
 <div class="fixed-widgets">
     <a href="https://wa.me/27716170705" 
