@@ -2068,7 +2068,22 @@
 
 
 
+<script>
 
+document.addEventListener('DOMContentLoaded', function() {
+  const whatsappWidget = document.querySelector('.whatsapp-widget');
+  
+  if (whatsappWidget) {
+    whatsappWidget.addEventListener('click', function() {
+      gtag('event', 'click', {
+        'event_category': 'WhatsApp',
+        'event_label': 'Widget Click',
+        'value': 1
+      });
+    });
+  }
+});
+    </script>
 
 
 <!--Contact-Widgets-->
